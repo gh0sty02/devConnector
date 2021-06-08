@@ -1,0 +1,4 @@
+{
+  "MongoURL": "mongodb+srv://ghosty:ihatelove99@cluster0.gjlhv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "jwtSecret": "the only secret I need "
+}
