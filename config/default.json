@@ -1,4 +1,6 @@
 {
   "MongoURL": "mongodb+srv://ghosty:ihatelove99@cluster0.gjlhv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "the only secret I need "
+  "jwtSecret": "the only secret I need ",
+  "githubClientId": "0a57ca2b20d112b99cf0",
+  "githubSecret": "d3a580c49042541d953e26082b53079e07e91602"
 }
