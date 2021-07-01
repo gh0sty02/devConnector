@@ -4,8 +4,8 @@
   "description": "Social Media for Devlopers",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "set NODE_ENV=production&& node server.js",
+    "server": "node server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \" npm run client\""
   },
