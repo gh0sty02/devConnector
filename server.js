@@ -1,20 +1,45 @@
 const express = require("express");
-const connectDB = require("./config/db");
-
+const dotenv = require("dotenv").config();
+const mongoose = require("mongoose");
 const app = express();
+const userRouter = require("./routes/users");
+const profileRouter = require("./routes/profile");
+const authRouter = require("./routes/auth");
+const postRouter = require("./routes/posts");
 
 // connecting database
-connectDB();
 
 app.use(express.json());
 
-const PORT = process.env.PORT || 5000;
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
 
-app.use("/api/users", require("./routes/users"));
-app.use("/api/auth", require("./routes/auth"));
-app.use("/api/profile", require("./routes/profile"));
-app.use("/api/posts", require("./routes/posts"));
+  next();
+});
 
-app.get("/", (req, res) => res.send("Api running"));
+app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/profile", profileRouter);
+app.use("/api/posts", postRouter);
 
-app.listen(PORT, () => console.log("SERVER RUNNING"));
+console.log(process.env.PORT || 5000);
+
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useFindAndModify: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    app.listen(process.env.PORT || 5000, () =>
+      console.log("server running successfully")
+    );
+  })
+  .catch((err) => console.log(`${err.message}.`));

@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 const { validationResult, check } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("config");
+
 const User = require("../models/User");
 
 router.get("/", auth, async (req, res) => {
@@ -26,7 +26,7 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    console.log(req.body);
+
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
@@ -63,7 +63,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get("jwtSecret"),
+        process.env.jwtSecret,
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
